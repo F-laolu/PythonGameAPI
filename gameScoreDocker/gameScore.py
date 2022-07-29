@@ -19,7 +19,7 @@ gameResults = [
 
 @gameScore.route('/')
 def index():
-    return "These are the game results data for various players, I have updated it again."
+    return "These are the game results data for various players, updated with github."
 
 @gameScore.route("/gameResults", methods=['GET'])
 def get():
