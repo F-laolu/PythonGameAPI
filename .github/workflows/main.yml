@@ -13,9 +13,14 @@ jobs:
         login-server: gameapicontainer.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
+    - uses: azure/docker-login@v1
+      with:
+        login-server: index.docker.io
+        username: ${{ secrets.DOCKERIO_USERNAME }}
+        password: ${{ secrets.DOCKERIO_PASSWORD }}
     - run: |
         docker build . -t gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
-        docker push gameapicontainer.azurecr.io/gameapi:${{ github.sha }} 
+        docker push gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
 
     - uses: azure/webapps-deploy@v2
       with:
