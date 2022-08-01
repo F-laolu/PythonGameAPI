@@ -15,19 +15,7 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
         docker build . -t gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
-        docker push gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
-        
-    - uses: actions/checkout@v2
-
-    - uses: azure/docker-login@v1
-      with:
-        login-server: gameapicontainer.azurecr.io
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
-
-    - run: |
-        docker build . -t gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
-        docker push gameapicontainer.azurecr.io/gameapi:${{ github.sha }}     
+        docker push gameapicontainer.azurecr.io/gameapi:${{ github.sha }} 
 
     - uses: azure/webapps-deploy@v2
       with:
