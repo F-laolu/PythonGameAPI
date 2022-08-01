@@ -14,8 +14,8 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -t gameapi -f gameScoreDocker/Dockerfile .
-        docker push gameapicontainer.azurecr.io/gameapi:latest
+        docker build . -t gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
+        docker push gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
 
     - uses: azure/webapps-deploy@v2
       with:
