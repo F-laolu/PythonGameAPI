@@ -4,6 +4,6 @@ RUN pip install flask
 
 #WORKDIR /PycharmProjects/gamescoresAPI 
 #for the container
-RUN gameScore.py . 
+COPY gameScore.py . 
 EXPOSE 5000
 CMD [ "python3", "./gameScore.py"]
