@@ -2,21 +2,22 @@
 apiVersion: apps/v1 # The API resource where this workload resides
 kind: Deployment # The kind of workload we're creating
 metadata:
-  name: game-api # This will be the name of the deployment
+  name: game-apidep # This will be the name of the deployment
 spec:
   selector: # Define the wrapping strategy
     matchLabels: # Match all pods with the defined labels
-      app: game-api # Labels follow the `name: value` template
+      app: game-apidep # Labels follow the `name: value` template
   template: # This is the template of the pod inside the deployment
     metadata: # Metadata for the pod
       labels:
-        app: game-api
+        app: game-apidep
     spec:
       nodeSelector:
         kubernetes.io/os: linux
       containers:
-        - image: gameapicontainer.azurecr.io/gameapi #specify image name
-          name: game-api
+        - image: olacontainerreg.azurecr.io/gamescore:latest
+        #- image: olacontainerreg.azurecr.io/gamescore:latest #specify image name
+          name: game-apidep
           resources: #amount of resources needed for the pod
             requests: # Minimum amount of resources requested
               cpu: 100m

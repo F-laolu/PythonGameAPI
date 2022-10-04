@@ -2,23 +2,14 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and setting
-
-from asyncio.windows_events import NULL
+from asyncio import constants
 import json
-
-import getpass
-from typing import Collection
-import pymongo
-
 from random import randint
 from flask import Flask, jsonify, request
+import azure.cosmos.cosmos_client as cosmos_client
 
 gameScore = Flask(__name__)
 
-CONNECTION_STRING = 'mongodb://pythonapi-cosmos:9FSKdBpq9XY3SZg1DmegfgJYWp1ekf3RAp8hQs7Bq3dhs5v5RtDhkloDHed6AXb193Y5bu20dG3RvBTkBK44rg==@pythonapi-cosmos.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@pythonapi-cosmos@' 
-DB_NAME = "pythongame"
-UNSHARDED_COLLECTION_NAME = "gameResult"
-SAMPLE_FIELD_NAME = "sample_field"
 
 #gameResults = [
     #{'id': "0", 'playerName': "Femi", 'score': "170", 'date': "08/02/2021"},
@@ -34,20 +25,26 @@ def index():
 
 @gameScore.route("/gameResults", methods=['GET'])
 def get():
-    game = collection.find()
     gameResults = []
-    for doc in game:
+
+    results = container.query_items('SELECT * FROM c', enable_cross_partition_query=True)
+    for doc in results:
         print (doc)
         gameResult = {
            'id': doc['id'], 'playerName': doc['playerName'], 'score': doc['score'], 'date': doc['date'] 
         }
         gameResults.append(gameResult)
     return jsonify({'gameresult': gameResults})
+       
+        
+        
 
 @gameScore.route("/gameResults/<int:id>", methods=['GET'])
 def get_index(id):
-    games = collection.find()
+    
     gameResults = []
+
+    games = container.query_items('SELECT * FROM c', enable_cross_partition_query=True)
     for doc in games:
         print (doc)
         gameResult = {
@@ -68,16 +65,23 @@ def create():
         'score': req_data['score'],
         'date': req_data['date']
     }
-    document_id = collection.insert_one(new_results).inserted_id
+    document_id = container.create_item(new_results, populate_query_metrics=True)
     return str(document_id)
    
 if __name__ == "__main__":
-    client = pymongo.MongoClient(CONNECTION_STRING)
-    try:
-        client.server_info() # validate connection string
-    except pymongo.errors.ServerSelectionTimeoutError:
-        raise TimeoutError("Invalid API for MongoDB connection string or timed out when attempting to connect")
 
-    collection = client[DB_NAME][UNSHARDED_COLLECTION_NAME]
-    print (collection)
+    config = {
+            'ENDPOINT': 'https://olacosmosdbacc1.documents.azure.com:443/',
+            'PRIMARYKEY': 'jgcHcXY9z49JtnxW4Sv8cJs1CWqxo0L0IvkAXF3jjjOeZyeVhhHoobQaM1ftglaK35tcg2tEeBNc6O7fts8cBQ==',
+            'DATABASE': 'GameDetails1',
+            'CONTAINER': 'GameScores1'
+        }
+        
+        # Initialize the Cosmos client
+    client = cosmos_client.CosmosClient(url=config['ENDPOINT'], credential={'masterKey': config['PRIMARYKEY']})
+
+    db = client.get_database_client(config['DATABASE'])
+    container = db.get_container_client(config['CONTAINER'])
+    
     gameScore.run(host='0.0.0.0', port = 5000, debug=True)
+ 

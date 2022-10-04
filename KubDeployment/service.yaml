@@ -4,9 +4,9 @@ kind: Service
 metadata:
   name: game-apiservice
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
-    app: game-api
+    app: game-apidep
   ports:
     - port: 80 # SERVICE exposed port
       name: http # SERVICE port name
