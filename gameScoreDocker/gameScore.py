@@ -71,10 +71,10 @@ def create():
 if __name__ == "__main__":
 
     config = {
-            'ENDPOINT': 'https://olacosmosdbacc1.documents.azure.com:443/',
-            'PRIMARYKEY': 'jgcHcXY9z49JtnxW4Sv8cJs1CWqxo0L0IvkAXF3jjjOeZyeVhhHoobQaM1ftglaK35tcg2tEeBNc6O7fts8cBQ==',
-            'DATABASE': 'GameDetails1',
-            'CONTAINER': 'GameScores1'
+            'ENDPOINT': ' ',
+            'PRIMARYKEY': ' ,
+            'DATABASE': ' ',
+            'CONTAINER': ' '
         }
         
         # Initialize the Cosmos client
