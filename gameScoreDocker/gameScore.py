@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
     config = {
             'ENDPOINT': ' ',
-            'PRIMARYKEY': ' ,
+            'PRIMARYKEY': ' ',
             'DATABASE': ' ',
             'CONTAINER': ' '
         }
