@@ -8,6 +8,8 @@ from random import randint
 from flask import Flask, jsonify, request
 import azure.cosmos.cosmos_client as cosmos_client
 
+import os
+
 gameScore = Flask(__name__)
 
 
@@ -71,10 +73,11 @@ def create():
 if __name__ == "__main__":
 
     config = {
-            'ENDPOINT': ' ',
-            'PRIMARYKEY': ' ',
-            'DATABASE': ' ',
-            'CONTAINER': ' '
+        
+            'ENDPOINT': 'https://olacosmosdbacc1.documents.azure.com:443/',
+            'PRIMARYKEY': os.environ['OlaDBconnkey'],
+            'DATABASE': 'GameDetails1',
+            'CONTAINER': 'GameScores1'
         }
         
         # Initialize the Cosmos client
