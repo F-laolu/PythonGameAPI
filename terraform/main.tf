@@ -31,6 +31,5 @@ terraform {
     storage_account_name = "olaterraformstore"
     container_name       = "olastateterraform"
     key                  = "terraform.tfstate"
-    access_key = "Olastorekey"
   }
 }
