@@ -4,6 +4,7 @@ terraform {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "3.23.0"
+  
     }
   }
 
@@ -30,5 +31,6 @@ terraform {
     storage_account_name = "olaterraformstore"
     container_name       = "olastateterraform"
     key                  = "terraform.tfstate"
+    access_key = "__storagekey__"
   }
 }
