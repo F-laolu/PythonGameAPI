@@ -2,9 +2,6 @@ name: Terraform Validate, Plan, Apply
 
 on: [workflow_dispatch]
 
-defaults:
-  run:
-    working-directory: ./terraform
 
 jobs:
   terraform:
