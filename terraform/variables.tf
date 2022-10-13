@@ -1,3 +1,3 @@
 variable "rgname" {
-  default = "gameapicontainer"
+  default = "gameapicontainer2"
 }
