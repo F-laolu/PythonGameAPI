@@ -1,5 +1,5 @@
 resource "azurerm_cosmosdb_account" "dbacc" {
-  name                = "olacosmosdbacc1"
+  name                = "olacosmosdbacc2"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   offer_type          = "Standard"
