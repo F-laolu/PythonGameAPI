@@ -6,7 +6,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: game-apidep
+    app: game-api
   ports:
     - port: 80 # SERVICE exposed port
       name: http # SERVICE port name
