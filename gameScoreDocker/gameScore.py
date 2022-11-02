@@ -74,8 +74,8 @@ if __name__ == "__main__":
 
     config = {
         
-            'ENDPOINT': 'https://olacosmosdbacc2.documents.azure.com:443/',
-            'PRIMARYKEY': os.environ['OlaDBconnkey2'],
+            'ENDPOINT': 'https://olacosmosdbacc3.documents.azure.com:443/',
+            'PRIMARYKEY': os.environ['OlaDBconnkey3'],
             'DATABASE': 'GameDetails1',
             'CONTAINER': 'GameScores1'
         }

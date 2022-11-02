@@ -21,8 +21,10 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rg" {
   name     = var.rgname
-  location = "UK West"
+  location = var.loc
 }
+
+
 
 #backend
 terraform {
@@ -30,6 +32,6 @@ terraform {
     resource_group_name  = "gameapicontainer"
     storage_account_name = "olastore"
     container_name       = "olastateterraform"
-    key                  = "terraform.tfstate"
+    key                  = "myterraform.tfstate"
   }
 }

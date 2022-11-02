@@ -1,8 +1,8 @@
 resource "azurerm_kubernetes_cluster" "example" {
-  name                = "olakscluster"
+  name                = var.kub
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  dns_prefix          = "olakscluster"
+  dns_prefix          = "olakscluster3"
 
 
   default_node_pool {
