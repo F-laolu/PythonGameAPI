@@ -15,7 +15,7 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
       containers:
-        - image: olacontainerreg3.azurecr.io/gamedetails:v2
+        - image: olacontainerreg3.azurecr.io/gamedetailsimg:latest
         #- image: olacontainerreg2.azurecr.io/pythonapidetails:latest #specify image name
           name: game-api
           resources: #amount of resources needed for the pod

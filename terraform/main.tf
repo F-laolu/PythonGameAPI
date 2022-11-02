@@ -32,6 +32,6 @@ terraform {
     resource_group_name  = "gameapicontainer"
     storage_account_name = "olastore"
     container_name       = "olastateterraform"
-    key                  = "myterraform.tfstate"
+    key                  = "olaterraform.tfstate"
   }
 }
