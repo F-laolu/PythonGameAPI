@@ -5,7 +5,6 @@ on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - uses: azure/docker-login@v1
@@ -16,7 +15,7 @@ jobs:
     - run: |
         docker build -f gameScoreDocker/Dockerfile . -t gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
         docker push gameapicontainer.azurecr.io/gameapi:${{ github.sha }
-        
+
     - name: Get AKS credentials
       env:
         CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
@@ -29,7 +28,9 @@ jobs:
     - name: Deploy application
       env:
         ACR_NAME: ${{ secrets.ACR_NAME }}
-      run: make deploy
+      run: \
+        sed 's|IMAGE_REPO|$(IMAGE_REPO)|g; s/VERSION/$(VERSION)/g' ./deployment.yaml | \
+                kubectl apply -f -
         
     
       
