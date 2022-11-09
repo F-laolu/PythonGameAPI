@@ -9,12 +9,12 @@ jobs:
     - uses: actions/checkout@v2
     - uses: azure/docker-login@v1
       with:
-        login-server: gameapicontainer3.azurecr.io
+        login-server: olacontainerreg3.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f gameScoreDocker/Dockerfile . -t gameapicontainer3.azurecr.io/gameapi:${{ github.sha }}
-        docker push gameapicontainer3.azurecr.io/gameapi:${{ github.sha }}
+        docker build -f gameScoreDocker/Dockerfile . -t olacontainerreg3.azurecr.io/gameapi:${{ github.sha }}
+        docker push olacontainerreg3.azurecr.io/gameapi:${{ github.sha }}
 
     - name: Get AKS credentials
       env:
