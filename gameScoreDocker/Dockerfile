@@ -5,6 +5,6 @@ RUN pip install azure-cosmos
 
 #WORKDIR /PycharmProjects/gamescoresAPI 
 #for the container
-COPY gameScore.py . 
+COPY gameScoreDocker/gameScore.py . 
 EXPOSE 5000
 CMD [ "python3", "./gameScore.py"]
