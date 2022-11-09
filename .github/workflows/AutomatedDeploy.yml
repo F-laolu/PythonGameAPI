@@ -1,0 +1,35 @@
+name: Docker build/Kubernetes Deployment Workflow
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: azure/docker-login@v1
+      with:
+        login-server: gameapicontainer.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - run: |
+        docker build -f gameScoreDocker/Dockerfile . -t gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
+        docker push gameapicontainer.azurecr.io/gameapi:${{ github.sha }
+        
+    - name: Get AKS credentials
+      env:
+        CLUSTER_RESOURCE_GROUP_NAME: ${{ secrets.CLUSTER_RESOURCE_GROUP_NAME }}
+        CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+      run: |
+        az aks get-credentials \
+          --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
+          --name $CLUSTER_NAME \
+          --overwrite-existing
+    - name: Deploy application
+      env:
+        ACR_NAME: ${{ secrets.ACR_NAME }}
+      run: make deploy
+        
+    
+      
