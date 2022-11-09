@@ -23,12 +23,12 @@ jobs:
         SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
         ACR_NAME: ${{ secrets.ACR_NAME }}
       run: |
-        az login \
+        @az login \
                   --service-principal \
                   --username $(SERVICE_PRINCIPAL_APP_ID) \
                   --password $(SERVICE_PRINCIPAL_SECRET) \
                   --tenant $(SERVICE_PRINCIPAL_TENANT)
-        az acr login --name $(ACR_NAME)
+        @az acr login --name $(ACR_NAME)
 
     - name: Get AKS credentials
       env:
