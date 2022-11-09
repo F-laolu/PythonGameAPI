@@ -13,8 +13,8 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build -f gameScoreDocker/Dockerfile . -t gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
-        docker push gameapicontainer.azurecr.io/gameapi:${{ github.sha }}
+        docker build -f gameScoreDocker/Dockerfile . -t gameapicontainer3.azurecr.io/gameapi:${{ github.sha }}
+        docker push gameapicontainer3.azurecr.io/gameapi:${{ github.sha }}
 
     - name: Get AKS credentials
       env:
