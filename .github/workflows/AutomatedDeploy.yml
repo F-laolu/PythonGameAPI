@@ -36,11 +36,7 @@ jobs:
           --overwrite-existing
           
     - name: Deploy application
-      uses: Azure/k8s-create-secret@v1.1
-      with:
-          secret-name: demo-k8s-secret
-
-    - uses: Azure/k8s-deploy@v3.1
+      uses: Azure/k8s-deploy@v3.1
       with:
           action: deploy
           manifests: |
@@ -48,8 +44,7 @@ jobs:
              KubDeployment/service.yml
           images: |
              $ACR_NAME/gameapi:${{ github.sha }}
-          imagepullsecrets: |
-             demo-k8s-secret
+
 
     
       
