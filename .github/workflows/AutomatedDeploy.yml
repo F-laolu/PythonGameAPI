@@ -40,8 +40,8 @@ jobs:
       with:
           action: deploy
           manifests: |
-             KubDeployment/deployment.yml
-             KubDeployment/service.yml
+             KubDeployment/deployment.yaml
+             KubDeployment/service.yaml
           images: |
              $ACR_NAME/gameapi:${{ github.sha }}
 
