@@ -13,23 +13,19 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
         
-    - run: |
-        docker build -f gameScoreDocker/Dockerfile . -t olacontainerreg3.azurecr.io/gameapi:${{ github.sha }}
-        docker push olacontainerreg3.azurecr.io/gameapi:${{ github.sha }}
-        
-    - name: Login to container registry
+    - name: Docker build/push
       env:
-        SERVICE_PRINCIPAL_APP_ID: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
-        SERVICE_PRINCIPAL_SECRET: ${{ secrets.SERVICE_PRINCIPAL_SECRET }}
-        SERVICE_PRINCIPAL_TENANT: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
         ACR_NAME: ${{ secrets.ACR_NAME }}
       run: |
-        az login \
-                  --service-principal \
-                  --username $(SERVICE_PRINCIPAL_APP_ID) \
-                  --password $(SERVICE_PRINCIPAL_SECRET) \
-                  --tenant $(SERVICE_PRINCIPAL_TENANT)
-        az acr login --name $(ACR_NAME)
+        docker build -f gameScoreDocker/Dockerfile . -t $ACR_NAME/gameapi:${{ github.sha }}
+        docker push $ACR_NAME/gameapi:${{ github.sha }}
+        
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+          client-id: ${{ secrets.SERVICE_PRINCIPAL_APP_ID }}
+          tenant-id: ${{ secrets.SERVICE_PRINCIPAL_TENANT }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
     - name: Get AKS credentials
       env:
