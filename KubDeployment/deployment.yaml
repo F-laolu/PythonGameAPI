@@ -32,7 +32,7 @@ spec:
             - name: OlaDBconnkey3
               valueFrom:
                 secretKeyRef:
-                  name: db-user-pass
+                  name: cosmos_key
                   key: OlaDBconnkey3
                   optional: false # same as default; "mysecret" must exist
                                   # and include a key named "password"
