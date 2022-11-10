@@ -34,12 +34,22 @@ jobs:
           --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
           --name $CLUSTER_NAME \
           --overwrite-existing
+          
     - name: Deploy application
-      env:
-        ACR_NAME: ${{ secrets.ACR_NAME }}
-      run: \
-        sed 's|IMAGE_REPO|$(IMAGE_REPO)|g; s/VERSION/$(VERSION)/g' ./deployment.yaml | \
-                kubectl apply -f -
-        
+      uses: Azure/k8s-create-secret@v1.1
+      with:
+          secret-name: demo-k8s-secret
+
+    - uses: Azure/k8s-deploy@v3.1
+      with:
+          action: deploy
+          manifests: |
+             KubDeployment/deployment.yml
+             KubDeployment/service.yml
+          images: |
+             $ACR_NAME/gameapi:${{ github.sha }}
+          imagepullsecrets: |
+             demo-k8s-secret
+
     
       
