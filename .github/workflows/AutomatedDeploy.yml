@@ -23,7 +23,7 @@ jobs:
     - name: Read Cosmos DB connection from terraform 
       working-directory: ./terraform
       run: |
-        COSMOSDB_SECRET = terraform output cosmos_key
+        COSMOSDB_SECRET=$(terraform output cosmos_key)
     
     - uses: azure/docker-login@v1
       with:
