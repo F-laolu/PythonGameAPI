@@ -5,8 +5,26 @@ on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    env:
+      ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
+      ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
+      ARM_SUBSCRIPTION_ID: ${{secrets.ARM_SUBSCRIPTION_ID}}
+      ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
+    
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        working-directory: ./terraform
+    
+    - name: Read Cosmos DB connection from terraform 
+      working-directory: ./terraform
+      run: |
+        COSMOSDB_SECRET=(terraform output cosmosoutputname)
+    
     - uses: azure/docker-login@v1
       with:
         login-server: ${{ secrets.ACR_NAME }}
@@ -34,7 +52,11 @@ jobs:
           --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
           --name $CLUSTER_NAME \
           --overwrite-existing
-          
+    
+    - name: Create DB secret in k8s
+      run: |
+        kubectl secret create !!!TODO!!! --from-literal=$COSMOSDB_SECRET
+    
     - name: Deploy application
       uses: Azure/k8s-deploy@v3.1
       with:
