@@ -23,7 +23,7 @@ jobs:
     - name: Read Cosmos DB connection from terraform 
       working-directory: ./terraform
       run: |
-        COSMOSDB_SECRET=(terraform output cosmosoutputname)
+        COSMOSDB_SECRET = (terraform output cosmos_key)
     
     - uses: azure/docker-login@v1
       with:
@@ -55,7 +55,7 @@ jobs:
     
     - name: Create DB secret in k8s
       run: |
-        kubectl secret create !!!TODO!!! --from-literal=$COSMOSDB_SECRET
+        kubectl secret create oladbconnkey --from-literal=$COSMOSDB_SECRET
     
     - name: Deploy application
       uses: Azure/k8s-deploy@v3.1
