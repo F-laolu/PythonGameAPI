@@ -24,6 +24,7 @@ jobs:
       working-directory: ./terraform
       run: |
         COSMOSDB_SECRET=$(terraform output cosmos_key)
+        echo $COSMOSDB_SECRET
     
     - uses: azure/docker-login@v1
       with:
