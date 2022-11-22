@@ -17,8 +17,6 @@ jobs:
     
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      with:
-        working-directory: terraform/terraform
     
     - name: Read Cosmos DB connection from terraform 
       working-directory: ./terraform
