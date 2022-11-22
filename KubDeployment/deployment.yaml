@@ -3,6 +3,7 @@ apiVersion: apps/v1 # The API resource where this workload resides
 kind: Deployment # The kind of workload we're creating
 metadata:
   name: game-api # This will be the name of the deployment
+  namespace: gameapi-namespace
 spec:
   selector: # Define the wrapping strategy
     matchLabels: # Match all pods with the defined labels
