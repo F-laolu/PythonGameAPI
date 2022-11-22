@@ -56,7 +56,7 @@ jobs:
     
     - name: Create DB secret in k8s
       run: |
-        kubectl secret create oladbconnkey --from-literal=$COSMOSDB_SECRET
+        kubectl create secret oladbconnkey --from-literal=$COSMOSDB_SECRET
     
     - name: Deploy application
       uses: Azure/k8s-deploy@v3.1
