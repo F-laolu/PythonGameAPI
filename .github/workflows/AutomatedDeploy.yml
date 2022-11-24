@@ -24,7 +24,7 @@ jobs:
         terraform init
         terraform output -raw cosmos_key        
         COSMOSDB_SECRET=$(terraform output cosmos_key)
-        echo "cosmos_secret=COSMOSDB_SECRET" >> $GITHUB_ENV
+        echo "cosmos_secret=$COSMOSDB_SECRET" >> $GITHUB_ENV
     
     - uses: azure/docker-login@v1
       with:
@@ -56,7 +56,8 @@ jobs:
     
     - name: Create DB secret in k8s
       run: |
-        kubectl create secret generic oladbconnkey1 --from-literal=cosmos_key=${{ env.cosmos_secret }}
+        kubectl create secret generic oladbconnkey1 --from-literal=cosmos_key=${{ env.cosmos_secret }} --dry-run -o yaml  \
+        | kubectl apply -f -
     
     - name: Deploy application
       uses: Azure/k8s-deploy@v3.1
