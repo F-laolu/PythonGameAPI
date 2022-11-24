@@ -22,7 +22,7 @@ jobs:
       working-directory: ./terraform
       run: |
         terraform init
-        terraform output cosmos_key        
+        terraform output -raw cosmos_key        
         COSMOSDB_SECRET=$(terraform output cosmos_key)
         echo "cosmos_secret=$COSMOSDB_SECRET" >> $GITHUB_ENV
     
