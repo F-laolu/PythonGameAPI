@@ -52,7 +52,7 @@ jobs:
         az aks get-credentials \
           --resource-group $CLUSTER_RESOURCE_GROUP_NAME \
           --name $CLUSTER_NAME \
-          --overwrite-existing
+          --overwrite-existing --admin
     
     - name: Create DB secret in k8s
       run: |
