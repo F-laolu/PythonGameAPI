@@ -29,10 +29,10 @@ spec:
             - containerPort: 5000 # This container exposes port 80
               name: http # We named that port "http" so we can refer to it later
           env:
-            - name: oladbconnkey1
+            - name: oladbconnkey
               valueFrom:
                 secretKeyRef:
-                  name: oladbconnkey1
+                  name: oladbconnkey
                   key: cosmos_key
                   optional: false # same as default; "mysecret" must exist
                                   # and include a key named "password"
