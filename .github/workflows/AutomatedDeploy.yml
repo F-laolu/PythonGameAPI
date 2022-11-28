@@ -23,7 +23,7 @@ jobs:
       run: |
         terraform init
         terraform output -raw cosmos_key        
-        COSMOSDB_SECRET=$(terraform output -raw cosmos_key)
+        COSMOSDB_SECRET="$(terraform output -raw cosmos_key)"
         echo "cosmos_secret=$COSMOSDB_SECRET" >> $GITHUB_ENV
     
     - uses: azure/docker-login@v1
