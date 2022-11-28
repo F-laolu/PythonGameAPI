@@ -73,7 +73,7 @@ jobs:
              KubDeployment/deployment.yaml
              KubDeployment/service.yaml
           images: |
-             $ACR_NAME/gameapi:${{ github.sha }}
+             ${{ secrets.ACR_NAME }}/gameapi:${{ github.sha }}
 
 
     
