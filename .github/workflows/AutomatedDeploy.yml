@@ -66,9 +66,10 @@ jobs:
         | kubectl apply -f -
     
     - name: Deploy application
-      uses: Azure/k8s-deploy@v3.1
+      uses: Azure/k8s-deploy@v4.6
       with:
           action: deploy
+          strategy: basic
           manifests: |
              KubDeployment/deployment.yaml
              KubDeployment/service.yaml
