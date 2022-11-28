@@ -23,8 +23,9 @@ jobs:
     - name: Read Cosmos DB connection from terraform 
       working-directory: ./terraform
       run: |
+        echo "Running terraform init..."
         terraform init
-        terraform output -raw cosmos_key        
+        echo "Setting Cosmos DB from Terraform output..."
         COSMOSDB_SECRET="$(terraform output -raw cosmos_key)"
         echo "cosmos_secret=$COSMOSDB_SECRET" >> $GITHUB_ENV
     
@@ -58,7 +59,7 @@ jobs:
     
     - name: Create DB secret in k8s
       run: |
-        kubectl create secret generic oladbconnkey1 --from-literal=cosmos_key=${{ env.cosmos_secret }} --dry-run -o yaml  \
+        kubectl create secret generic oladbconnkey --from-literal=cosmos_key=${{ env.cosmos_secret }} --dry-run -o yaml  \
         | kubectl apply -f -
     
     - name: Deploy application
