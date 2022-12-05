@@ -39,6 +39,7 @@ jobs:
       env:
         ACR_NAME: ${{ secrets.ACR_NAME }}
       run: |
+        az acr update -n $ACR_NAME --admin-enabled true
         docker build -f gameScoreDocker/Dockerfile . -t $ACR_NAME/gameapi:${{ github.sha }}
         docker push $ACR_NAME/gameapi:${{ github.sha }}
 
