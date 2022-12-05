@@ -40,6 +40,7 @@ jobs:
         ACR_NAME: ${{ secrets.ACR_NAME }}
       run: |
         docker build -f gameScoreDocker/Dockerfile . -t $ACR_NAME/gameapi:${{ github.sha }}
+        docker push $ACR_NAME/gameapi:${{ github.sha }}
 
         docker tag $ACR_NAME/gameapi:${{ github.sha }} $ACR_NAME/gameapi:latest
         docker push $ACR_NAME/gameapi:latest
