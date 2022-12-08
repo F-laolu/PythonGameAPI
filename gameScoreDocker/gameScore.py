@@ -10,6 +10,21 @@ import azure.cosmos.cosmos_client as cosmos_client
 
 import os
 
+import logging
+
+from opencensus.ext.azure.log_exporter import AzureLogHandler
+
+logger = logging.getLogger(__name__)
+# TODO: replace the all-zero GUID with your instrumentation key.
+logger.addHandler(AzureLogHandler(
+    connection_string='InstrumentationKey=428e39f4-6bce-47b9-bda1-16e957fb0d03')
+)
+
+properties = {'custom_dimensions': {'key_1': 'value_1', 'key_2': 'value_2'}}
+
+# Use properties in logging statements
+logger.warning('action', extra=properties)
+
 gameScore = Flask(__name__)
 
 
@@ -87,4 +102,5 @@ if __name__ == "__main__":
     container = db.get_container_client(config['CONTAINER'])
     
     gameScore.run(host='0.0.0.0', port = 5000, debug=True)
+   
  

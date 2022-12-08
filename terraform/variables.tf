@@ -13,4 +13,9 @@ variable "kub" {
 variable "cosmosdb" {
   default = "olacosmosdbacc3"
 }
-
+variable "insight" {
+  default = "appinsights3"
+}
+variable "workspace" {
+  default = "appworkspace3"
+}
