@@ -36,10 +36,10 @@ spec:
                   key: cosmos_key
                   optional: false # same as default; "mysecret" must exist
                                   # and include a key named "password"
-             - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+             - name: insightsconnectionstring
               valueFrom:
                 secretKeyRef:
-                  name: APPLICATIONINSIGHTS_CONNECTION_STRING
+                  name: insightsconnectionstring
                   key: connection_string
                   optional: false # same as default; "mysecret" must exist
                                   # and include a key named "password"
