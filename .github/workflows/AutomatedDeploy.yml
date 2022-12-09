@@ -72,7 +72,7 @@ jobs:
 
     - name: Create app Insight connection string in k8s
       run: |
-        kubectl create secret generic insightsconnectionstring --from-literal=connection_string=${{ env.insight_secret }} --dry-run -o yaml  \
+        kubectl create secret generic insightsconnectionstring --from-literal=connection_string=${{ env.insight_secret }} \
         | kubectl apply -f -
     
     - name: Deploy application
