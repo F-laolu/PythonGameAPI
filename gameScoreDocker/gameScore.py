@@ -20,7 +20,7 @@ from opencensus.trace.samplers import ProbabilitySampler
 logger = logging.getLogger(__name__)
 # TODO: replace the all-zero GUID with your instrumentation key.
 logger.addHandler(AzureLogHandler(
-    connection_string = os.environ['APPLICATIONINSIGHTS_CONNECTION_STRING'])
+    connection_string = os.environ['insightsconnectionstring'])
 )
 
 properties = {'custom_dimensions': {'key_1': 'value_1', 'key_2': 'value_2'}}
@@ -29,7 +29,7 @@ properties = {'custom_dimensions': {'key_1': 'value_1', 'key_2': 'value_2'}}
 gameScore = Flask(__name__)
 middleware = FlaskMiddleware(
     gameScore,
-    exporter=AzureExporter(connection_string= os.environ['APPLICATIONINSIGHTS_CONNECTION_STRING']),
+    exporter=AzureExporter(connection_string= os.environ['insightsconnectionstring']),
     sampler=ProbabilitySampler(rate=1.0)
 )
 
