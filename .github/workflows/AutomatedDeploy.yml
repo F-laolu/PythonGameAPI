@@ -20,7 +20,7 @@ jobs:
       with:
         terraform_wrapper: false
     
-    - name: Read Cosmos DB connection from terraform 
+    - name: Read Cosmos DB connection/app Insight connection string from terraform 
       working-directory: ./terraform
       run: |
         echo "Running terraform init..."
@@ -28,6 +28,11 @@ jobs:
         echo "Setting Cosmos DB from Terraform output..."
         COSMOSDB_SECRET="$(terraform output -raw cosmos_key)"
         echo "cosmos_secret=$COSMOSDB_SECRET" >> $GITHUB_ENV
+
+        echo "Reading app Insight Connection String..."
+        APPINSIGHT_SECRET="$(terraform output -raw connection_string)"
+        echo "insight_secret=$APPINSIGHT_SECRET" >> $GITHUB_ENV
+    
     
     - uses: azure/docker-login@v1
       with:
@@ -63,6 +68,11 @@ jobs:
     - name: Create DB secret in k8s
       run: |
         kubectl create secret generic oladbconnkey --from-literal=cosmos_key=${{ env.cosmos_secret }} --dry-run -o yaml  \
+        | kubectl apply -f -
+
+    - name: Create app Insight connection string in k8s
+      run: |
+        kubectl create secret generic APPLICATIONINSIGHTS_CONNECTION_STRING --from-literal=connection_string=${{ env.insight_secret }} --dry-run -o yaml  \
         | kubectl apply -f -
     
     - name: Deploy application
